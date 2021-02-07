@@ -9,6 +9,22 @@
   transition: box-shadow 0.2s ease-in-out;
 }
 
+.filter-played {
+  background-color: green;
+}
+
+.filter-discarded {
+  background-color: blue;
+}
+
+.filter-lost {
+  background-color: black;
+}
+
+.opaque {
+  opacity: 0.2;
+}
+
 @media (max-width: 600px) {
   .card {
     width: 165px;
@@ -88,4 +104,25 @@
     4px -6px 0 white,
     4px -8px 0 white;
   transform: rotate(45deg);
+}
+
+.play-button {
+  background-color: lightgreen;
+  position: absolute;
+  bottom: 0px;
+  z-index: 10;
+}
+.discard-button {
+  background-color: lightblue;
+  position: absolute;
+  bottom: 0px;
+  left: 25px;
+  z-index: 10;
+}
+.lost-button {
+  background-color: grey;
+  position: absolute;
+  bottom: 0px;
+  left: 50px;
+  z-index: 10;
 }

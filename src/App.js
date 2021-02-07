@@ -24,7 +24,8 @@ class App extends Component {
     //"starting = total - 16" instead of putting it in data?
     const data = [...Array(total)].map( (e, index) =>
       ({id: order ? order[index] : index+1,
-        visible: starting > index })
+        visible: starting > index,
+        filter: '' })
     )
     this.save(character, data)
     this.setState({ cards: data })
@@ -80,6 +81,16 @@ class App extends Component {
     this.setState({editing: !this.state.editing})
   }
 
+  setFilter(index, filter) {
+    this.setState(
+      update(this.state, {
+        cards: {
+          [index]: { filter: { $apply: (_e) => this.state.cards[index].filter !== filter ? filter : ''} }
+        },
+      })
+      , this.save)
+  }
+
   render() {
     const { character, cards } = this.state
     return (
@@ -113,6 +124,8 @@ class App extends Component {
               showToggle={this.state.editing}
               visible={item.visible}
               toggleCard={this.toggleCard.bind(this)}
+              filter={item.filter}
+              setFilter={this.setFilter.bind(this)}
             />
           ))}
         </div>

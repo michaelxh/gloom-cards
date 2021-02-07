@@ -83,11 +83,14 @@ const Card = ({
 	index,
 	showToggle,
 	visible,
-	toggleCard
+	toggleCard,
+	filter,
+	setFilter
 }) => {
 	if (!showToggle && !visible) return false;
   return connectDragSource(connectDropTarget(
-    <div className={`card ${visible ? '' : 'card--hidden'} ${isDragging ? 'card--dragged' : ''}`}>
+		<div
+			className={`card ${visible ? '' : 'card--hidden'} ${isDragging ? 'card--dragged' : ''}`}>
 			{ showToggle &&
 				<label className={`cardToggle ${visible ? 'cardToggleChecked' : ''}`}>
 					<input
@@ -97,8 +100,13 @@ const Card = ({
 						/>
 				</label>
 			}
-      <img src={`cards/${character}-${id}.jpg`} alt="" />
-    </div>
+			<button className='play-button' onClick={() => setFilter(index, 'played')}>P</button>
+			<button className='discard-button' onClick={() => setFilter(index, 'discarded')}>D</button>
+			<button className='lost-button' onClick={() => setFilter(index, 'lost')}>L</button>
+			<div className={`filter-${filter}`}>
+				<img className={`${filter && 'opaque'}`} src={`cards/${character}-${id}.jpg`} alt="" />
+			</div>
+		</div>
   ));
 }
 export default DropTarget("card", cardTarget, collectTarget)(DragSource("card", cardSource, collect)(Card));
